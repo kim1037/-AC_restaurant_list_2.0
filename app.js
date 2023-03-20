@@ -2,6 +2,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
+const Restaurant = require("./models/restaurant"); //載入 Restaurant model
 const restaurantList = require("./restaurant.json");
 const recommendRestaurants = require("./random_restaurant");
 const app = express();
@@ -34,20 +35,26 @@ app.engine("hbs", exphbs({ defaultLayout: "main", extname: "hbs" }));
 app.set("view engine", "hbs");
 
 // setting static files
-app.use(express.static("public"));
+app.use(express.static("public"), express.urlencoded({ extended: true }));
 
 //set route
 //首頁
 app.get("/", (req, res) => {
-  res.render("index", { restaurants: restaurantList.results });
+  Restaurant.find() //取出model裡的資料
+    .lean() //轉換成JS array
+    .then((restaurants) => {
+      res.render("index", { restaurants });
+    })
+    .catch((e) => console.log(e));
 });
 
 //餐廳詳細的route
-app.get("/restaurants/:restaurant_id", (req, res) => {
-  const restaurant = restaurantList.results.find(
-    (restaurant) => restaurant.id.toString() === req.params.restaurant_id
-  );
-  res.render("show", { restaurant: restaurant });
+app.get("/restaurants/:id", (req, res) => {
+  const id = req.params.id;
+  Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("show", { restaurant }))
+    .catch((e) => console.log(e));
 });
 
 //搜尋結果的route
@@ -65,7 +72,10 @@ app.get("/search", (req, res) => {
     : recommendRestaurants(restaurantList.results);
 
   res.render("index", { restaurants, keyword, noResults });
- 
+});
+//set create new restaurant route
+app.get("/create", (req, res) => {
+  res.send("這裡可以新增餐廳");
 });
 
 app.listen(port, () => {

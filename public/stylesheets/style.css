@@ -65,6 +65,15 @@ header {
   white-space: nowrap;
 }
 
+.create-restraurant {
+  height: 280px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .restaurant-category {
   color: #666666;
   font-size: 0.8rem;
