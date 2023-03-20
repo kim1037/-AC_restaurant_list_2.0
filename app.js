@@ -53,16 +53,19 @@ app.get("/restaurants/:restaurant_id", (req, res) => {
 //搜尋結果的route
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword.trim().toLowerCase();
-  const restaurants = restaurantList.results.filter(
+  let restaurants = restaurantList.results.filter(
     (restaurant) =>
       restaurant.name.toLowerCase().includes(keyword) ||
       restaurant.category.includes(keyword)
   );
   const noResults = restaurants.length ? false : true;
-  const recommend = recommendRestaurants(restaurantList.results);
+  //如有搜尋到則維持原本的restaurant array, 沒有執行推薦3間餐廳的function
+  restaurants = restaurants.length
+    ? restaurants
+    : recommendRestaurants(restaurantList.results);
 
-  //如果有搜尋結果回傳restaurants，如果沒有則會顯示recommend
-  res.render("index", { restaurants, keyword, noResults, recommend });
+  res.render("index", { restaurants, keyword, noResults });
+ 
 });
 
 app.listen(port, () => {
