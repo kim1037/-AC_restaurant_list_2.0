@@ -60,18 +60,24 @@ app.get("/restaurants/:id", (req, res) => {
 //搜尋結果的route
 app.get("/search", (req, res) => {
   const keyword = req.query.keyword.trim().toLowerCase();
-  let restaurants = restaurantList.results.filter(
-    (restaurant) =>
-      restaurant.name.toLowerCase().includes(keyword) ||
-      restaurant.category.includes(keyword)
-  );
-  const noResults = restaurants.length ? false : true;
-  //如有搜尋到則維持原本的restaurant array, 沒有執行推薦3間餐廳的function
-  restaurants = restaurants.length
-    ? restaurants
-    : recommendRestaurants(restaurantList.results);
+  Restaurant.find()
+    .lean()
+    .then((restaurantsData) => {
+      let restaurants = restaurantsData.filter(
+        (restaurant) =>
+          restaurant.name.toLowerCase().includes(keyword) ||
+          restaurant.category.includes(keyword)
+      );
+      const noResults = restaurants.length ? false : true;
+      //如有搜尋到則維持原本的restaurant array, 沒有執行推薦3間餐廳的function
 
-  res.render("index", { restaurants, keyword, noResults });
+      // if (!restaurants.length) {
+      //   restaurants = recommendRestaurants(restaurantsData);
+      // } //目前執行到這段會卡住，先註解掉整體做完再來修bug
+
+      res.render("index", { restaurants, keyword, noResults });
+    })
+    .catch((e) => console.log(e));
 });
 //set create new restaurant route
 app.get("/create", (req, res) => {
