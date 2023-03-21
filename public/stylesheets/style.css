@@ -101,21 +101,8 @@ header {
   background-color: rgb(224, 0, 0);
 }
 
-/* for validation */
-.invalid-feedback,
-.valid-feedback {
-  display: none;
-  font-size: 0.8em;
-}
-.invalid-feedback {
-  color: red;
-}
-.valid-feedback {
-  color: green;
-}
-form.was-validated .form-control:invalid ~ .invalid-feedback,
-form.was-validated .form-control:valid ~ .valid-feedback {
-  display: initial; /* 顯示 */
+.operate a {
+  text-decoration: none;
 }
 
 @media screen and (max-width: 992px) {
