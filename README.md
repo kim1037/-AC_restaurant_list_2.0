@@ -1,5 +1,5 @@
 # AC_restaurant_list_2.0
-使用 Node.js + Express 製作的簡易餐廳美食網站，可點擊餐廳卡片查看詳細資訊，也可透過名稱或料理類別來搜尋餐廳。
+使用 Node.js + Express 製作的簡易餐廳美食網站，使用者可以查看、新增、編輯或刪除餐廳資訊。
 
 ## Screenshot - 畫面截圖
 ![image](https://user-images.githubusercontent.com/107454420/226575748-d2ba7373-1e3b-46a2-965d-c686d4dddfd6.png)
