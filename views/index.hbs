@@ -69,8 +69,8 @@
                 href="/restaurants/{{this._id}}"
                 class="text-secondary me-2"
               >Detail</a>
-              <a href="" class="me-2">Edit</a>
-              <form action="" method="POST" style="display: inline;">
+              <a href="/restaurants/{{this._id}}/edit" class="me-2">Edit</a>
+              <form action="/restaurants/{{this._id}}/delete" method="POST" style="display: inline;">
                 <button
                   type="submit"
                   class="btn btn-danger"

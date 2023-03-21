@@ -71,9 +71,8 @@ app.get("/search", (req, res) => {
       const noResults = restaurants.length ? false : true;
       //如有搜尋到則維持原本的restaurant array, 沒有執行推薦3間餐廳的function
 
-      // if (!restaurants.length) {
-      //   restaurants = recommendRestaurants(restaurantsData);
-      // } //目前執行到這段會卡住，先註解掉整體做完再來修bug
+      // restaurants = restaurants.length ? restaurants : recommendRestaurants(restaurantsData);
+      //目前執行到這段會卡住，先註解掉整體做完再來修bug
 
       res.render("index", { restaurants, keyword, noResults });
     })
@@ -81,7 +80,23 @@ app.get("/search", (req, res) => {
 });
 //set create new restaurant route
 app.get("/create", (req, res) => {
-  res.send("這裡可以新增餐廳");
+  res.render("create");
+});
+
+//set edit page
+app.get("/restaurants/:id/edit", (req, res) => {
+  res.render("edit");
+});
+
+//delete restaurant
+app.post("/restaurants/:id/delete", (req, res) => {
+  const id = req.params.id;
+  Restaurant.findById(id)
+    .then((rest) => {
+      return rest.remove();
+    })
+    .then(() => res.redirect("/"))
+    .catch((e) => console.log(e));
 });
 
 app.listen(port, () => {
