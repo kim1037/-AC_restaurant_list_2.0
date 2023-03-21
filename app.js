@@ -94,7 +94,19 @@ app.post("/restaurants", (req, res) => {
 
 //set edit page
 app.get("/restaurants/:id/edit", (req, res) => {
-  res.render("edit");
+  const id = req.params.id;
+  Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render("edit", { restaurant }))
+    .catch((e) => console.log(e));
+});
+
+//edit restaurant
+app.post("/restaurants/:id/edit", (req, res) => {
+  const id = req.params.id;
+  Restaurant.findByIdAndUpdate(id, req.body)
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch((e) => console.log(e));
 });
 
 //delete restaurant
