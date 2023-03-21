@@ -3,7 +3,6 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const Restaurant = require("./models/restaurant"); //載入 Restaurant model
-const restaurantList = require("./restaurant.json");
 const recommendRestaurants = require("./random_restaurant");
 const app = express();
 const port = 3000;
