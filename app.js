@@ -34,8 +34,9 @@ db.once("open", () => {
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: "hbs" }));
 app.set("view engine", "hbs");
 
-// setting static files
-app.use(express.static("public"), express.urlencoded({ extended: true }));
+// setting static files & body-parser
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
 //set route
 //首頁
@@ -78,9 +79,17 @@ app.get("/search", (req, res) => {
     })
     .catch((e) => console.log(e));
 });
-//set create new restaurant route
+//set create page
 app.get("/create", (req, res) => {
   res.render("create");
+});
+
+//set create new restaurant route
+app.post("/restaurants", (req, res) => {
+  const data = req.body;
+  Restaurant.create(data)
+    .then(() => res.redirect("/"))
+    .catch((e) => console.log(e));
 });
 
 //set edit page
