@@ -4,7 +4,7 @@ function recommendRestaurants(restaurants) {
   while (randomRestaurantList.length < 3) {
     const restaurant =
       restaurants[Math.floor(Math.random() * restaurants.length)];
-    if (!randomRestaurantList.some((res) => res.id === restaurant.id)) {
+    if (!randomRestaurantList.some((res) => res.name === restaurant.name)) {
       randomRestaurantList.push(restaurant);
     }
   }

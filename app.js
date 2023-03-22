@@ -68,11 +68,9 @@ app.get("/search", (req, res) => {
           restaurant.name.toLowerCase().includes(keyword) ||
           restaurant.category.includes(keyword)
       );
-      const noResults = restaurants.length ? false : true;
+      const noResults = restaurants.length === 0
       //如有搜尋到則維持原本的restaurant array, 沒有執行推薦3間餐廳的function
-
-      // restaurants = restaurants.length ? restaurants : recommendRestaurants(restaurantsData);
-      //目前執行到這段會卡住，先註解掉整體做完再來修bug
+      restaurants = restaurants.length ? restaurants : recommendRestaurants(restaurantsData);
 
       res.render("index", { restaurants, keyword, noResults });
     })

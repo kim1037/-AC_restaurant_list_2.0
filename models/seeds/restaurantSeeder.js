@@ -16,21 +16,7 @@ db.on("error", () => {
 
 db.once("open", () => {
   console.log("mongodb connected!");
-  restaurantList.forEach((rest) => createRest(rest));
+  Restaurant.create(restaurantList);
 
   console.log("done");
 });
-
-function createRest(rest) {
-  Restaurant.create({
-    name: `${rest.name}`,
-    name_en: `${rest.name_en}`,
-    category: `${rest.category}`,
-    image: `${rest.image}`,
-    location: `${rest.location}`,
-    phone: `${rest.phone}`,
-    google_map: `${rest.google_map}`,
-    rating: `${rest.rating}`,
-    description: `${rest.description}`,
-  });
-}
