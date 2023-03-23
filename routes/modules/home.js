@@ -4,6 +4,7 @@ const Restaurant = require("../../models/restaurant");
 const recommendRestaurants = require("../../random_restaurant");
 
 router.get("/", (req, res) => {
+  
   Restaurant.find() //取出model裡的資料
     .lean() //轉換成JS array
     .then((restaurants) => {

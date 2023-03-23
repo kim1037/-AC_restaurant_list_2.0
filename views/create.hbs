@@ -1,7 +1,7 @@
 <div class="container-sm mt-3" style="width: 70%;">
   <!--待補驗證效果-->
   <h1 class="m-3" style="text-align:center;">新增餐廳</h1>
-  <form action="/restaurants" method="post" class="border rounded-3 shadow-sm p-3 needs-validation" id="form" novalidate>
+  <form action="/restaurants" method="post" class="border rounded-3 shadow-sm p-3 needs-validation" id="createForm" novalidate>
     <div class="row mb-3">
       <label for="name" class="col-sm-2 col-form-label">餐廳名稱</label>
       <div class="col-sm-10">
@@ -66,14 +66,12 @@
       </div>
     <div class="row mb-3 justify-content-end">
       <div class="col-1 mt-2">
-        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+        <button type="submit" class="btn btn-primary" id="createButton">Submit</button>
                 
       </div>
       <div class="col-1 mt-2">
-        <button type="reset" class="btn btn-danger" id="submitButton">Reset</button>
+        <button type="reset" class="btn btn-danger" id="resetButton">Reset</button>
       </div>
     </div>
   </form>
 </div>
-
-<script src="/javascripts/validation.js"></script>
