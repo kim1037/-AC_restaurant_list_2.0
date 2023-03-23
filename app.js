@@ -3,8 +3,9 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const Restaurant = require("./models/restaurant"); //載入 Restaurant model
-const recommendRestaurants = require("./random_restaurant");
+
 const methodOverride = require("method-override");
+const routes = require("./routes");
 const app = express();
 const port = 3000;
 
@@ -38,89 +39,7 @@ app.set("view engine", "hbs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
-//set route
-//首頁
-app.get("/", (req, res) => {
-  Restaurant.find() //取出model裡的資料
-    .lean() //轉換成JS array
-    .then((restaurants) => {
-      res.render("index", { restaurants });
-    })
-    .catch((e) => console.log(e));
-});
-
-//set create page
-app.get("/restaurants/create", (req, res) => {
-  res.render("create");
-});
-
-//餐廳詳細的route
-app.get("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
-  Restaurant.findById(id)
-    .lean()
-    .then((restaurant) => res.render("show", { restaurant }))
-    .catch((e) => console.log(e));
-});
-
-//搜尋結果的route
-app.get("/search", (req, res) => {
-  const keyword = req.query.keyword.trim().toLowerCase();
-  Restaurant.find()
-    .lean()
-    .then((restaurantsData) => {
-      let restaurants = restaurantsData.filter(
-        (restaurant) =>
-          restaurant.name.toLowerCase().includes(keyword) ||
-          restaurant.category.includes(keyword)
-      );
-      const noResults = restaurants.length === 0;
-      //如有搜尋到則維持原本的restaurant array, 沒有執行推薦3間餐廳的function
-      restaurants = restaurants.length
-        ? restaurants
-        : recommendRestaurants(restaurantsData);
-
-      res.render("index", { restaurants, keyword, noResults });
-    })
-    .catch((e) => console.log(e));
-});
-
-//set create new restaurant route
-app.post("/restaurants", (req, res) => {
-  const data = req.body;
-  Restaurant.create(data)
-    .then(() => res.redirect("/"))
-    .catch((e) => console.log(e));
-});
-
-//set edit page
-app.get("/restaurants/:id/edit", (req, res) => {
-  const id = req.params.id;
-  Restaurant.findById(id)
-    .lean()
-    .then((restaurant) => res.render("edit", { restaurant }))
-    .catch((e) => console.log(e));
-});
-
-//edit restaurant
-app.put("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
-  Restaurant.findByIdAndUpdate(id, req.body)
-    .then(() => res.redirect(`/restaurants/${id}`))
-    .catch((e) => console.log(e));
-});
-
-//delete restaurant
-app.delete("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
-  Restaurant.findById(id)
-    .then((rest) => {
-      return rest.remove();
-    })
-    .then(() => res.redirect("/"))
-    .catch((e) => console.log(e));
-});
+app.use(routes);
 
 app.listen(port, () => {
   console.log(`The server is running on http://localhost:${port}`);
