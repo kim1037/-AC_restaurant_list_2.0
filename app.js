@@ -4,6 +4,7 @@ const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const Restaurant = require("./models/restaurant"); //載入 Restaurant model
 const recommendRestaurants = require("./random_restaurant");
+const methodOverride = require("method-override");
 const app = express();
 const port = 3000;
 
@@ -36,6 +37,7 @@ app.set("view engine", "hbs");
 // setting static files & body-parser
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 //set route
 //首頁
@@ -46,6 +48,11 @@ app.get("/", (req, res) => {
       res.render("index", { restaurants });
     })
     .catch((e) => console.log(e));
+});
+
+//set create page
+app.get("/restaurants/create", (req, res) => {
+  res.render("create");
 });
 
 //餐廳詳細的route
@@ -68,17 +75,15 @@ app.get("/search", (req, res) => {
           restaurant.name.toLowerCase().includes(keyword) ||
           restaurant.category.includes(keyword)
       );
-      const noResults = restaurants.length === 0
+      const noResults = restaurants.length === 0;
       //如有搜尋到則維持原本的restaurant array, 沒有執行推薦3間餐廳的function
-      restaurants = restaurants.length ? restaurants : recommendRestaurants(restaurantsData);
+      restaurants = restaurants.length
+        ? restaurants
+        : recommendRestaurants(restaurantsData);
 
       res.render("index", { restaurants, keyword, noResults });
     })
     .catch((e) => console.log(e));
-});
-//set create page
-app.get("/create", (req, res) => {
-  res.render("create");
 });
 
 //set create new restaurant route
@@ -99,7 +104,7 @@ app.get("/restaurants/:id/edit", (req, res) => {
 });
 
 //edit restaurant
-app.post("/restaurants/:id/edit", (req, res) => {
+app.put("/restaurants/:id", (req, res) => {
   const id = req.params.id;
   Restaurant.findByIdAndUpdate(id, req.body)
     .then(() => res.redirect(`/restaurants/${id}`))
@@ -107,7 +112,7 @@ app.post("/restaurants/:id/edit", (req, res) => {
 });
 
 //delete restaurant
-app.post("/restaurants/:id/delete", (req, res) => {
+app.delete("/restaurants/:id", (req, res) => {
   const id = req.params.id;
   Restaurant.findById(id)
     .then((rest) => {

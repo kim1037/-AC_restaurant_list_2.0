@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<!-- 如果無搜尋解果，推薦三間餐廳  -->
+<!-- 如果無搜尋結果，顯示下方資訊並推薦三間餐廳  -->
 {{#if noResults}}
   <h1 class="ms-5 mt-5">找不到有關
     <span style="color:red;">{{keyword}}</span>
@@ -62,16 +62,17 @@
                   </span>
 
                 </div>
-                
+
               </div>
             </a>
             <div class="d-flex justify-content-end align-items-center operate">
-              <a
-                href="/restaurants/{{this._id}}"
-                class="me-2"
-              >Detail</a>
+              <a href="/restaurants/{{this._id}}" class="me-2">Detail</a>
               <a href="/restaurants/{{this._id}}/edit" class="me-2">Edit</a>
-              <form action="/restaurants/{{this._id}}/delete" method="POST" style="display: inline;">
+              <form
+                action="/restaurants/{{this._id}}?_method=DELETE"
+                method="POST"
+                style="display: inline;"
+              >
                 <button
                   type="submit"
                   class="btn btn-danger"
@@ -83,13 +84,12 @@
             </div>
           </div>
         {{/each}}
-          <div class="row">      
-              <div class="card mb-3 create-restraurant">
-                  <a href="/create" class="text-secondary" id="create-link">Create new restaurant</a>
-                  </div>
-                </div>
-              </div>          
+        <div class="row">
+          <div class="card mb-3 create-restraurant">
+            <a href="/restaurants/create" class="text-secondary" id="create-link">Create new
+              restaurant</a>
           </div>
+        </div>
       </div>
     </div>
   </div>

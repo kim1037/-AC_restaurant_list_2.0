@@ -16,7 +16,7 @@ db.on("error", () => {
 
 db.once("open", () => {
   console.log("mongodb connected!");
-  Restaurant.create(restaurantList);
-
-  console.log("done");
+  Restaurant.create(restaurantList)
+    .then(() => console.log("done"))
+    .catch((e) => console.log(e));
 });
