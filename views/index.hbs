@@ -30,24 +30,12 @@
               onchange="sortRestaurants()"
               value="{{sortBy}}"
             >
-              <option
-                value="_id"
-                {{selected sortBy "_id"}}
-              >(預設排序)建立日期(舊>新)</option>
-              <option
-                value="-_id"
-                {{selected sortBy "-_id"}}
-              >建立日期(新>舊)</option>
+              <option value="_id" {{selected sortBy "_id"}}>(預設排序)建立日期(舊>新)</option>
+              <option value="-_id" {{selected sortBy "-_id"}}>建立日期(新>舊)</option>
               <option value="name" {{selected sortBy "name"}}>店家名稱(A > Z)</option>
               <option value="-name" {{selected sortBy "-name"}}>店家名稱(Z to A)</option>
-              <option
-                value="-rating"
-                {{selected sortBy "-rating"}}
-              >Rating(高>低)</option>
-              <option
-                value="rating"
-                {{selected sortBy "rating"}}
-              >Rating(低>高)</option>
+              <option value="-rating" {{selected sortBy "-rating"}}>Rating(高>低)</option>
+              <option value="rating" {{selected sortBy "rating"}}>Rating(低>高)</option>
             </select>
           </div>
         </div>
