@@ -1,9 +1,12 @@
 # AC_restaurant_list_2.0
-使用 Node.js + Express 製作的簡易餐廳美食網站，使用者可以查看、新增、編輯或刪除餐廳資訊。
+使用 Node.js + Express + MongoDB 製作的簡易餐廳美食網站，使用者可以查看、新增、編輯或刪除餐廳資訊。
 
 ## Screenshot - 畫面截圖
-![image](https://user-images.githubusercontent.com/107454420/226575748-d2ba7373-1e3b-46a2-965d-c686d4dddfd6.png)
+#### 搜尋&排序
+![image](https://user-images.githubusercontent.com/107454420/227485484-a0afc421-b193-4871-9827-72b6958c9afc.png)
+#### 新增按鈕
 ![image](https://user-images.githubusercontent.com/107454420/226575994-58b5d896-d12c-447e-9efe-b4847b6fd85a.png)
+#### 新增頁面
 ![image](https://user-images.githubusercontent.com/107454420/226576034-9ce23cf9-cb5b-480a-9d3a-edc8b986fe48.png)
 
 ## Features - 功能
@@ -13,6 +16,7 @@
 4. 使用者可以瀏覽一筆餐廳的詳細資訊
 5. 使用者可以編輯一筆餐廳的詳細資訊
 6. 使用者可以刪除一筆餐廳資料
+7. 使用者可以透過下拉式選單選擇餐廳排序方式
 
 ## Prerequisites - 環境設置
 * Node.js
@@ -21,6 +25,7 @@
 * Bootstrap @5.1.3
 * MongoDB
 * mongoose @5.9.7
+* method-override @3.0.0
 
 ## Installation and execution - 安裝與執行步驟
 1. 開啟Terminal, Clone此專案至本機:
@@ -35,7 +40,7 @@ cd AC_my_restaurant_list
 
 3. 安裝所需套件
 ```
-npm i express@4.17.1 express-handlebars@3.0.0
+npm i express@4.17.1 express-handlebars@3.0.0 method-override@3.0.0
 ```
 
 4. 安裝 mongoose
@@ -69,4 +74,3 @@ npm run dev
 > The server is running on http://localhost:3000
 >
 > Connect success!
-
