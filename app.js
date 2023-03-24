@@ -2,14 +2,17 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const methodOverride = require("method-override");
-const routes = require("./routes"); 
+const routes = require("./routes");
 const app = express();
 const port = 3000;
-
-require('./config/mongoose')
+const helpers = require("./public/javascripts/helpers");
+require("./config/mongoose");
 
 //set view template
-app.engine("hbs", exphbs({ defaultLayout: "main", extname: "hbs" }));
+app.engine(
+  "hbs",
+  exphbs({ defaultLayout: "main", extname: "hbs", helpers: helpers })
+);
 app.set("view engine", "hbs");
 
 // setting static files & body-parser
