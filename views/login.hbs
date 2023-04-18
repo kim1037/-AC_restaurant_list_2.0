@@ -1,8 +1,11 @@
 <div class="login d-flex flex-column align-items-center mt-5">
-  <div class="m-5 p-5 border" style="width: 500px; background-color: rgba(255, 255, 255, 0.964);">
+  <div
+    class="m-5 p-5 border"
+    style="width: 500px; background-color: rgba(255, 255, 255, 0.964);"
+  >
     <h1 class="text-center mb-4">Account Login</h1>
     {{!-- {{> message}} --}}
-    <form action="/users/login" method="post" >
+    <form action="/users/login" method="post">
       <div class="mb-3">
         <label for="Email" class="form-label">Email</label>
         <input
@@ -11,6 +14,7 @@
           id="Email"
           placeholder="Email"
           name="email"
+          required
         />
       </div>
       <div class="mb-3">
@@ -21,13 +25,15 @@
           id="Password"
           placeholder="Password"
           name="password"
+          required
         />
       </div>
       <div class="d-flex justify-content-center my-4 flex-column">
         <button type="submit" class="btn btn-success mb-2">Login</button>
-        <a href="/auth/facebook" class="btn btn-primary btn-block">Facebook Login</a>
+        <a href="/auth/facebook" class="btn btn-primary btn-block">Facebook
+          Login</a>
       </div>
-      <p class="lead ">No Account? <a href="/users/register"> Register</a></p>
+      <p class="lead">No Account? <a href="/users/register"> Register</a></p>
 
       {{!-- {{#if errorMessage}}
         <p class="text-danger mt-3 text-center">{{errorMessage}}</p>
