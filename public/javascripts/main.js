@@ -9,12 +9,12 @@ createButton.addEventListener("click", function onSubmitButtonClicked(event) {
 function sortRestaurants() {
   const sortBy = document.querySelector("#sortBy").value;
   const regex = /sortBy=.*/;
-  if (window.location.href.includes("search")) {
+  if (window.location.href.includes("search")) { //搜尋結果
     window.location.href = window.location.href.replace(
       regex,
       `sortBy=${sortBy}`
     );
-  } else {
+  } else { //首頁
     window.location.href = `/?sortBy=${sortBy}`;
   }
 }

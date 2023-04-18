@@ -11,7 +11,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
 });
 
-db = mongoose.connection;
+const db = mongoose.connection;
 
 //set connect error and success message
 db.on("error", () => {
