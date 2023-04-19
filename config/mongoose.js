@@ -19,7 +19,7 @@ db.on("error", () => {
 });
 
 db.once("open", () => {
-  console.log("Connect success!");
+  console.log("MongoDB connect success!");
 });
 
 module.exports = db;
