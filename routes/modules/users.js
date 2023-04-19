@@ -16,19 +16,40 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/users/login",
+    failureFlash: true,
   })
 );
 
 router.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
+  const errors = [];
+  if (!email || !password || !confirmPassword) {
+    errors.push({ message: "All fields are required, except name." });
+  }
+  if (password !== confirmPassword) {
+    errors.push({ message: "Password and confirm Password mustt be same." });
+  }
+  if (errors.length) {
+    return res.render("register", {
+      name,
+      email,
+      password,
+      confirmPassword,
+      errors,
+    });
+  }
   User.findOne({ email })
     .then((user) => {
       if (user) {
+        errors.push({
+          message: "This email already exists.",
+        });
         return res.render("register", {
           name,
           email,
           password,
-          message: "此email已註冊",
+          confirmPassword,
+          errors,
         });
       }
       User.create({ name, email, password })
@@ -40,6 +61,7 @@ router.post("/register", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
+  req.flash("success_msg", "你已經成功登出。");
   res.redirect("/users/login");
 });
 
