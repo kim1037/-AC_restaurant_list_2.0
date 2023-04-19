@@ -38,4 +38,9 @@ router.post("/register", (req, res) => {
     .catch((e) => console.log(e));
 });
 
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/users/login");
+});
+
 module.exports = router;
