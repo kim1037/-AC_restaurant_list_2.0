@@ -5,7 +5,8 @@ const recommendRestaurants = require("../../random_restaurant");
 
 router.get("/", (req, res) => {
   const sortBy = req.query.sortBy || "_id"; //default用資料創建時間排序
-  Restaurant.find() //取出model裡的資料
+  const userId = req.user._id;
+  Restaurant.find({ userId }) //取出model裡的資料
     .sort(sortBy)
     .lean() //轉換成JS array
     .then((restaurants) => {
@@ -18,7 +19,8 @@ router.get("/", (req, res) => {
 router.get("/search", (req, res) => {
   const keyword = req.query.keyword.trim().toLowerCase();
   const sortBy = req.query.sortBy || "_id";
-  Restaurant.find()
+  const userId = req.user._id;
+  Restaurant.find({ userId })
     .lean()
     .sort(sortBy)
     .then((restaurantsData) => {
