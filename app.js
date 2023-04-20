@@ -10,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const helpers = require("./public/javascripts/helpers");
 require("./config/mongoose");
+
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config;
 }
@@ -23,7 +24,7 @@ app.set("view engine", "hbs");
 
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: process.env.FACEBOOK_APP_SECRET,
     resave: false,
     saveUninitialized: true,
   })
