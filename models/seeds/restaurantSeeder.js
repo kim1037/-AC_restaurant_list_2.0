@@ -4,15 +4,12 @@ if (process.env.NODE_ENV !== "production") {
 const Restaurant = require("../restaurant");
 const User = require("../user");
 const restaurantList = require("./restaurant.json").results;
+const usersList = require("./users.json");
 const db = require("../../config/mongoose");
 const bcrypt = require("bcryptjs");
-const SEED_USERS = [
-  { name: "user1", email: "user1@example.com", password: "12345678" },
-  { name: "user2", email: "user2@example.com", password: "12345678" },
-];
 
 db.once("open", () => {
-  const promises = SEED_USERS.map((USER) => {
+  const promises = usersList.map((USER) => {
     return bcrypt
       .genSalt(10)
       .then((salt) => bcrypt.hash(USER.password, salt))
@@ -23,7 +20,7 @@ db.once("open", () => {
         const userId = user._id;
         const name = user.name;
         let restaurant = [];
-        if (name === "user1") {
+        if (name === usersList[0].name) {
           restaurant = restaurantList.slice(0, 3);
         } else {
           restaurant = restaurantList.slice(3);
